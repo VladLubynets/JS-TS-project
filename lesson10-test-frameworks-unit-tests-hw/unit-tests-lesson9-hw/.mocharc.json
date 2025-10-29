@@ -1,0 +1,6 @@
+{
+    "extension": "ts",
+    "spec": "specs/**/*.spec.ts",
+    "require": ["tsx"],
+    "timeout": 10000
+}
