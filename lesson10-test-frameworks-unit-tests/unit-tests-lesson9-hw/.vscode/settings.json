@@ -1,0 +1,8 @@
+{
+  "jest.nodeEnv": {
+    "NODE_OPTIONS": "--experimental-vm-modules"
+  },
+  "jest.jestCommandLine": "node --experimental-vm-modules node_modules/.bin/jest",
+  "jest.autoRun": "off"
+}
+
