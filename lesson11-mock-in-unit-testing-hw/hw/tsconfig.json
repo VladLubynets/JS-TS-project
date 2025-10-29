@@ -1,0 +1,26 @@
+{
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules/**/*"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "module": "commonjs",
+    "rootDir": ".",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "skipLibCheck": true,
+    "verbatimModuleSyntax": false,
+    "isolatedModules": false,
+    "types": ["mocha", "chai", "node"]
+  }
+}
+
