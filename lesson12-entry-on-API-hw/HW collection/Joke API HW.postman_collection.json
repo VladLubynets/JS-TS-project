@@ -1,0 +1,441 @@
+{
+	"info": {
+		"_postman_id": "d6fe1fed-1bfb-41fc-a674-7767b35c0d8d",
+		"name": "Joke API HW 10 tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23769554"
+	},
+	"item": [
+		{
+			"name": "Random joke (legacy)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+							"const json = pm.response.json();",
+							"pm.test(\"Has required fields\", () => {",
+							"  pm.expect(json).to.have.property(\"id\");",
+							"  pm.expect(json).to.have.property(\"type\");",
+							"  pm.expect(json).to.have.property(\"setup\");",
+							"  pm.expect(json).to.have.property(\"punchline\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/random_joke",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"random_joke"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Random joke",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+							"const json = pm.response.json();",
+							"pm.test(\"Has required fields\", () => {",
+							"  pm.expect(json).to.have.property(\"id\");",
+							"  pm.expect(json).to.have.property(\"type\");",
+							"  pm.expect(json).to.have.property(\"setup\");",
+							"  pm.expect(json).to.have.property(\"punchline\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/jokes/random",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"jokes",
+						"random"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ten random jokes (legacy)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+							"const arr = pm.response.json();",
+							"pm.test(\"Is array\", () => pm.expect(arr).to.be.an(\"array\"));",
+							"pm.test(\"Each element has required fields\", () => {",
+							"  arr.forEach(j => {",
+							"    pm.expect(j).to.have.property(\"id\");",
+							"    pm.expect(j).to.have.property(\"type\");",
+							"    pm.expect(j).to.have.property(\"setup\");",
+							"    pm.expect(j).to.have.property(\"punchline\");",
+							"  });",
+							"});",
+							"",
+							"pm.test('Array of 10', () => pm.expect(pm.response.json().length).to.eql(10));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/random_ten",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"random_ten"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ten random jokes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+							"const arr = pm.response.json();",
+							"pm.test(\"Is array\", () => pm.expect(arr).to.be.an(\"array\"));",
+							"pm.test(\"Each element has required fields\", () => {",
+							"  arr.forEach(j => {",
+							"    pm.expect(j).to.have.property(\"id\");",
+							"    pm.expect(j).to.have.property(\"type\");",
+							"    pm.expect(j).to.have.property(\"setup\");",
+							"    pm.expect(j).to.have.property(\"punchline\");",
+							"  });",
+							"});",
+							"",
+							"pm.test('Array of 10', () => pm.expect(pm.response.json().length).to.eql(10));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/jokes/ten",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"jokes",
+						"ten"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Random 5 jokes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+							"const arr = pm.response.json();",
+							"pm.test(\"Is array\", () => pm.expect(arr).to.be.an(\"array\"));",
+							"pm.test(\"Each element has required fields\", () => {",
+							"  arr.forEach(j => {",
+							"    pm.expect(j).to.have.property(\"id\");",
+							"    pm.expect(j).to.have.property(\"type\");",
+							"    pm.expect(j).to.have.property(\"setup\");",
+							"    pm.expect(j).to.have.property(\"punchline\");",
+							"  });",
+							"});",
+							"",
+							"pm.test('Array of 5', () => pm.expect(pm.response.json().length).to.eql(5));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/jokes/random/5",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"jokes",
+						"random",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Joke types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+							"const types = pm.response.json();",
+							"pm.test(\"Contains expected types\", () => {",
+							"  pm.expect(types).to.include.members([\"general\",\"programming\",\"knock-knock\"]);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/types",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Programming random",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+							"const arr = pm.response.json();",
+							"pm.test(\"All jokes are programming type\", () => {",
+							"  arr.forEach(j => pm.expect(j.type).to.eql(\"programming\"));",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/jokes/programming/random",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"jokes",
+						"programming",
+						"random"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Programming ten",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+							"const arr = pm.response.json();",
+							"pm.test(\"All jokes are programming type\", () => {",
+							"  arr.forEach(j => pm.expect(j.type).to.eql(\"programming\"));",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/jokes/programming/ten",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"jokes",
+						"programming",
+						"ten"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Knock-knock random",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+							"const arr = pm.response.json();",
+							"pm.test(\"All jokes are knock-knock type\", () => {",
+							"  arr.forEach(j => pm.expect(j.type).to.eql(\"knock-knock\"));",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/jokes/knock-knock/random",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"jokes",
+						"knock-knock",
+						"random"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Joke by dynamic ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+							"const body = pm.response.json();",
+							"pm.test(\"Matches requested ID\", () => {",
+							"  pm.expect(String(body.id)).to.eql(String(pm.variables.get(\"jokeId\")));",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.sendRequest(pm.variables.replaceIn('{{baseUrl}}/jokes/random'), (err, res) => {",
+							"  if (!err) {",
+							"    const joke = res.json();",
+							"    pm.variables.set(\"jokeId\", joke.id);",
+							"  }",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/jokes/{{jokeId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"jokes",
+						"{{jokeId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3005"
+		}
+	]
+}
