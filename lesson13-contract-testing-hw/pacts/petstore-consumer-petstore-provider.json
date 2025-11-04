@@ -1,0 +1,184 @@
+{
+  "consumer": {
+    "name": "petstore-consumer"
+  },
+  "interactions": [
+    {
+      "description": "a request to create a new pet",
+      "providerStates": [
+        {
+          "name": "a new pet can be created"
+        }
+      ],
+      "request": {
+        "body": {
+          "name": "Buddy",
+          "photoUrls": [
+            "https://example.com/photo2.jpg"
+          ],
+          "status": "available"
+        },
+        "headers": {
+          "Content-Type": "application/json",
+          "accept": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "POST",
+        "path": "/pet"
+      },
+      "response": {
+        "body": {
+          "id": 123,
+          "name": "Buddy",
+          "photoUrls": [
+            "https://example.com/photo2.jpg"
+          ],
+          "status": "available"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request to find pets by status",
+      "providerStates": [
+        {
+          "name": "pets with status available exist"
+        }
+      ],
+      "request": {
+        "headers": {
+          "accept": "application/json"
+        },
+        "method": "GET",
+        "path": "/pet/findByStatus",
+        "query": {
+          "status": [
+            "available"
+          ]
+        }
+      },
+      "response": {
+        "body": [
+          {
+            "id": 1,
+            "name": "Fluffy",
+            "photoUrls": [
+              "https://example.com/photo1.jpg"
+            ],
+            "status": "available"
+          }
+        ],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request to get pet by id",
+      "providerStates": [
+        {
+          "name": "pet with id 1 exists"
+        }
+      ],
+      "request": {
+        "headers": {
+          "accept": "application/json"
+        },
+        "method": "GET",
+        "path": "/pet/1"
+      },
+      "response": {
+        "body": {
+          "category": {
+            "id": 1,
+            "name": "Cats"
+          },
+          "id": 1,
+          "name": "Fluffy",
+          "photoUrls": [
+            "https://example.com/photo1.jpg"
+          ],
+          "status": "available",
+          "tags": [
+            {
+              "id": 1,
+              "name": "cute"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      }
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "16.0.2"
+    },
+    "pactRust": {
+      "ffi": "0.4.28",
+      "models": "1.3.5"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "petstore-provider"
+  }
+}
+
