@@ -1,0 +1,38 @@
+Тест-кейс 1: Пошук товару за ключовим словом
+1.input[name="search"]— вводимо текст "Power Bank"
+2.//button[contains(@class,'search-submit') and @type='submit'] - натискаємо кнопку пошуку
+3.//rz-product-tile - очікуємо, що знайдено принаймні один товар 
+
+
+Тест-кейс 2: Додавання товару до кошика
+1. input[name="search"] — вводимо “Ноутбук”
+2. //button[contains(@class,'search-submit') and @type='submit'] - натискаємо "Знайти"
+3. (//rz-product-tile)[1] — натискаємо на перший товар у списку
+4. (//button[contains(@class,'buy-button')])[1] - натискаємо "Купити"
+5. //button[contains(@aria-label, 'В кошику')] - перевіряємо наявність товару в кошику
+
+Тест-кейс 3: Видалення товару з корзини
+Передумова:
+1. input[name="search"] — вводимо текст "iphone"
+2. //button[contains(@class,'search-submit') and @type='submit'] - натискаємо кнопку пошуку
+3. (//rz-product-tile)[1] — обираємо перший товар у списку
+4. //button[contains(@aria-label,'Купити')] - натискаємо "Купити"
+5. //button[@data-testid='header-cart-btn'] - натискаємо іконку кошика, відкриваємо корзину
+Кроки тесту:
+6. //button[@id='cartProductActions0'] - натискаємо на 3 крапки(vertical dots)
+7. //button[normalize-space()='Видалити'] - натискаємо кнопку видалення товару з корзини
+8. //h4[normalize-space()='Кошик порожній'] — очікуємо, що товар видалений і корзина пуста
+
+
+Тест-кейс 4: Валідація форми логіну з порожніми полями
+1. //button[@data-testid='header-auth-btn']  - натискаємо на кнопку "Увійти"
+2. //input[@type='text' and @inputmode='tel'] - очищаємо поле, залишаємо порожнім
+3. //div[normalize-space(text())='Продовжити'] - натискаємо на кнопку "Продовжити"
+4. //span[contains(text(), '12 символ')] — очікуємо відображення повідомлення про помилку "Номер повинен містити 12 символів"
+
+
+Тест-кейс 5: Логін з невалідними обліковими даними
+1. //button[@data-testid='header-auth-btn'] - натискаємо посилання “Увійти”
+2. //input[@type='text' and @inputmode='tel'] - вводимо  у поле не валідний номер телефону
+3. //div[normalize-space(text())='Продовжити'] - натискаємо на кнопку "Продовжити"
+4. //span[@data-qaid='phone-hint' and contains(text(),'Невідомий код оператора')] - очікуємо відображення повідомлення про помилку "Невідомий код оператора"
