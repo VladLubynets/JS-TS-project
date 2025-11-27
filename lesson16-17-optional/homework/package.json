@@ -1,0 +1,19 @@
+{
+  "name": "homework",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Homework - 4 tests with Page Objects for Cypress, Puppeteer, Selenium",
+  "workspaces": [
+    "four-tests-cypress",
+    "four-tests-puppeteer",
+    "four-tests-selenium"
+  ],
+  "scripts": {
+    "install:all": "npm install",
+    "test:cypress": "npm run test --workspace=four-tests-cypress",
+    "test:puppeteer": "npm run test --workspace=four-tests-puppeteer",
+    "test:selenium": "npm run test --workspace=four-tests-selenium",
+    "cypress:open": "npm run cypress:open --workspace=four-tests-cypress"
+  }
+}
+

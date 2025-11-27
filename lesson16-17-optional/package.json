@@ -1,0 +1,18 @@
+{
+  "name": "lesson16-17-optional",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lessons 16-17 and Homework",
+  "workspaces": [
+    "homework/four-tests-cypress",
+    "homework/four-tests-puppeteer",
+    "homework/four-tests-selenium"
+  ],
+  "scripts": {
+    "test:cypress": "npm run test --workspace=four-tests-cypress",
+    "test:puppeteer": "npm run test --workspace=four-tests-puppeteer",
+    "test:selenium": "npm run test --workspace=four-tests-selenium",
+    "cypress:open": "npm run cypress:open --workspace=four-tests-cypress"
+  }
+}
+
