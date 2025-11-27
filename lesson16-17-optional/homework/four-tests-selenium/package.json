@@ -1,0 +1,21 @@
+{
+  "name": "four-tests-selenium",
+  "version": "1.0.0",
+  "description": "Homework - 4 simple Selenium WebDriver tests with Mocha + Chai + Page Objects",
+  "scripts": {
+    "test": "mocha --require ts-node/register --timeout 60000 specs/**/*.spec.ts"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.10.0",
+    "@types/selenium-webdriver": "^4.1.21",
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "selenium-webdriver": "^4.16.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.0"
+  }
+}
+
+
