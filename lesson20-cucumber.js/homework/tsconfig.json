@@ -1,0 +1,22 @@
+{
+  "exclude": ["./node_modules/**/*"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ES6",
+    "lib": ["ESNext", "es6", "DOM"],
+    "module": "ESNext",
+    "rootDir": "./",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": "build",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "strictPropertyInitialization": false
+  }
+}
+

@@ -1,0 +1,24 @@
+{
+  "name": "homework-cucumber-playwright",
+  "version": "1.0.0",
+  "description": "Homework: Cucumber.js + Playwright UI testing",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "test": "cucumber-js --config cucumber.cjs --profile local",
+    "test:ci": "cucumber-js --config cucumber.cjs --profile ci"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "@cucumber/pretty-formatter": "^2.4.1",
+    "@types/chai": "^5.2.3",
+    "chai": "^6.2.1",
+    "playwright": "^1.57.0"
+  }
+}
+
