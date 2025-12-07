@@ -1,4 +1,3 @@
-
 # Playwright
 node_modules/
 /test-results/
@@ -7,3 +6,21 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 .auth/
+
+# Allure
+/allure-results/
+/allure-report/
+
+# Mochawesome
+/mochawesome-report/
+/reports/
+
+# BrowserStack
+browserstack.yml
+/log/
+browserstackSetupConfig.json
+playwright-browserstack-sdk.config.t*
+playwright-browserstack-sdk.config.temp.json
+
+# Scripts
+run-allure.ps1

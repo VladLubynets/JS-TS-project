@@ -1,26 +1,49 @@
 **/node_modules
 
- 
 **/npm-debug.log*
 **/yarn-error.log*
 **/pnpm-debug.log*
 
- 
 **/.eslintcache
 **/.parcel-cache
 **/.turbo
 **/dist
 **/build
- 
+
 .idea
 .vscode/*
 !.vscode/settings.json
 .DS_Store
 Thumbs.db
 
- 
 **/.env
 **/.env.local
 **/.env.development.local
 **/.env.test.local
 **/.env.production.local
+
+# Playwright
+**/test-results/
+**/playwright-report/
+**/blob-report/
+**/playwright/.cache/
+**/playwright/.auth/
+**/.auth/
+
+# Allure
+**/allure-results/
+**/allure-report/
+
+# Mochawesome
+**/mochawesome-report/
+**/reports/
+
+# BrowserStack
+**/browserstack.yml
+**/log/
+**/browserstackSetupConfig.json
+**/playwright-browserstack-sdk.config.t*
+**/playwright-browserstack-sdk.config.temp.json
+
+# Scripts
+**/run-allure.ps1
