@@ -1,0 +1,19 @@
+userName: hirgoffhirgoff_mo9rRf
+accessKey: gqCsXqrJiT54xma8CUyT
+projectName: Playwright HW Lesson 19
+buildName: HW Lesson 19 Tests
+buildIdentifier: '#6'
+browserstackLocal: false
+debug: false
+networkLogs: false
+consoleLogs: errors
+testObservability: true
+browserstackAutomation: false
+platforms: []
+testContextOptions:
+  skipSessionStatus: true
+  skipSessionName: true
+logDir: C:\Users\Worker\JS-TS-project\lesson18-19-playwright\log
+browserStackLocalOptions:
+  skipBinaryInitialisation: false
+proxySettings: {}

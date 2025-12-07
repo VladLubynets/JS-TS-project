@@ -5,6 +5,22 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Allure
+/allure-results/
+/allure-report/
+
+# Mochawesome
+/mochawesome-report/
+/reports/
+
+# BrowserStack
+browserstack.yml
+/log/
+
+# IDE
+.idea/
+.vscode/
 .auth/
 
 # Allure
