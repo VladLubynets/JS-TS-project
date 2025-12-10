@@ -1,0 +1,16 @@
+{
+  "name": "four-tests-cypress",
+  "version": "1.0.0",
+  "description": "Homework - 4 simple Cypress tests with Page Objects",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.0",
+    "typescript": "^5.3.0"
+  }
+}
+
+
