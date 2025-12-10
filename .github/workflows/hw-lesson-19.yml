@@ -45,7 +45,9 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run tests with Allure reporter
-        run: npm run test:hw19:allure
+        run: npx playwright test --config=hw-lesson-19/playwright.config.ts
+        env:
+          REPORTER: allure
         continue-on-error: true
 
       - name: Generate Allure report
