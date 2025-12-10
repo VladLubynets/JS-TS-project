@@ -65,7 +65,7 @@ export default defineConfig({
             name: 'chromium',
             use: {
                 ...devices['Desktop Chrome'],
-                headless: false,
+                headless: !!process.env.CI,
                 viewport: {
                     width: 1680,
                     height: 900
