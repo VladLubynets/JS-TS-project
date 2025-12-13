@@ -50,8 +50,8 @@ jobs:
           REPORTER: allure
         continue-on-error: true
 
-      - name: Generate Allure report
-        run: npx allure generate allure-results --clean -o allure-report
+      - name: Generate Allure report (single HTML file)
+        run: npx allure generate allure-results --clean --single-file -o allure-report
         if: always()
 
       - name: Upload Allure report

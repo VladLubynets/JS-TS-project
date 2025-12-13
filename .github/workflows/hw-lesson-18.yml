@@ -56,4 +56,3 @@ jobs:
           name: hw18-playwright-report
           path: lesson18-19-playwright/playwright-report/
           retention-days: 7
-
