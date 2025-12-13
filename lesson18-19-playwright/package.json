@@ -5,13 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "eslint . && playwright test",
+    "test:hw18": "playwright test --config=hw-lesson-18/playwright.config.ts",
     "test:hw19": "playwright test --config=hw-lesson-19/playwright.config.ts",
-    "test:hw19:mochawesome": "cross-env REPORTER=mochawesome playwright test --config=hw-lesson-19/playwright.config.ts && start mochawesome-report/mochawesome.html",
-    "test:hw19:allure": "cross-env REPORTER=allure playwright test --config=hw-lesson-19/playwright.config.ts && npx allure serve allure-results",
     "test:hw19:browserstack": "npx browserstack-node-sdk playwright test --config=hw-lesson-19/playwright.config.ts",
-    "test:hw19:all-reporters": "cross-env REPORTER=all playwright test --config=hw-lesson-19/playwright.config.ts",
     "allure:generate": "npx allure generate allure-results --clean -o allure-report",
-    "allure:open": "npx allure open allure-report",
+    "allure:generate:single": "npx allure generate allure-results --clean --single-file -o allure-report",
     "allure:serve": "npx allure serve allure-results"
   },
   "keywords": [],
