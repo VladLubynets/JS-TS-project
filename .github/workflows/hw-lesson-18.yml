@@ -4,13 +4,17 @@ on:
   push:
     branches: [main, lesson18-19]
     paths:
-      - 'hw-lesson-18/**'
+      - 'lesson18-19-playwright/hw-lesson-18/**'
       - '.github/workflows/hw-lesson-18.yml'
   pull_request:
     branches: [main]
     paths:
-      - 'hw-lesson-18/**'
+      - 'lesson18-19-playwright/hw-lesson-18/**'
   workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: lesson18-19-playwright
 
 jobs:
   test:
@@ -26,6 +30,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          cache-dependency-path: lesson18-19-playwright/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -41,7 +46,7 @@ jobs:
         if: always()
         with:
           name: hw18-test-results
-          path: test-results/
+          path: lesson18-19-playwright/test-results/
           retention-days: 7
 
       - name: Upload Playwright report
@@ -49,6 +54,5 @@ jobs:
         if: always()
         with:
           name: hw18-playwright-report
-          path: playwright-report/
+          path: lesson18-19-playwright/playwright-report/
           retention-days: 7
-
