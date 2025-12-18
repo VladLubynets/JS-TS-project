@@ -1,0 +1,42 @@
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Allure
+/allure-results/
+/allure-report/
+
+# Mochawesome
+/mochawesome-report/
+/reports/
+
+# BrowserStack
+browserstack.yml
+/log/
+
+# IDE
+.idea/
+.vscode/
+.auth/
+
+# Allure
+/allure-results/
+/allure-report/
+
+# Mochawesome
+/mochawesome-report/
+/reports/
+
+# BrowserStack
+browserstack.yml
+/log/
+browserstackSetupConfig.json
+playwright-browserstack-sdk.config.t*
+playwright-browserstack-sdk.config.temp.json
+
+# Scripts
+run-allure.ps1
