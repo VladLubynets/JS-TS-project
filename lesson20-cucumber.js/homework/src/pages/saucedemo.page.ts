@@ -85,6 +85,6 @@ export class SauceDemoPage {
     }
 
     public async getCartItemsCount(): Promise<number> {
-        return await this.cartItems.count();  
+        return await this.cartItems.count();
     }
 }
