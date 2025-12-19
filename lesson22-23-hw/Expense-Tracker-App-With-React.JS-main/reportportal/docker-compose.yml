@@ -1,0 +1,195 @@
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: rp_postgres
+    environment:
+      POSTGRES_USER: rpuser
+      POSTGRES_PASSWORD: rppass
+      POSTGRES_DB: reportportal
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rpuser -d reportportal"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine
+    container_name: rp_rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: always
+
+  opensearch:
+    image: opensearchproject/opensearch:2.11.1
+    container_name: rp_opensearch
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q green || curl -s http://localhost:9200/_cluster/health | grep -q yellow"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: always
+
+  migrations:
+    image: reportportal/migrations:5.11.1
+    container_name: rp_migrations
+    environment:
+      POSTGRES_SERVER: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: reportportal
+      POSTGRES_USER: rpuser
+      POSTGRES_PASSWORD: rppass
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: on-failure
+
+  uat:
+    image: reportportal/service-authorization:5.11.1
+    container_name: rp_uat
+    environment:
+      RP_DB_HOST: postgres
+      RP_DB_PORT: 5432
+      RP_DB_USER: rpuser
+      RP_DB_PASS: rppass
+      RP_DB_NAME: reportportal
+      RP_SESSION_LIVE: 86400
+      RP_AMQP_HOST: rabbitmq
+      RP_AMQP_PORT: 5672
+      RP_AMQP_USER: rabbitmq
+      RP_AMQP_PASS: rabbitmq
+      RP_AMQP_APIPORT: 15672
+      RP_AMQP_APIUSER: rabbitmq
+      RP_AMQP_APIPASS: rabbitmq
+      RP_INITIAL_ADMIN_PASSWORD: erebus
+      DATASTORE_TYPE: filesystem
+    volumes:
+      - storage:/data/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+    restart: always
+
+  api:
+    image: reportportal/service-api:5.11.1
+    container_name: rp_api
+    environment:
+      RP_DB_HOST: postgres
+      RP_DB_PORT: 5432
+      RP_DB_USER: rpuser
+      RP_DB_PASS: rppass
+      RP_DB_NAME: reportportal
+      RP_AMQP_HOST: rabbitmq
+      RP_AMQP_PORT: 5672
+      RP_AMQP_USER: rabbitmq
+      RP_AMQP_PASS: rabbitmq
+      RP_AMQP_APIPORT: 15672
+      RP_AMQP_APIUSER: rabbitmq
+      RP_AMQP_APIPASS: rabbitmq
+      RP_AMQP_ANALYZER-VHOST: analyzer
+      DATASTORE_TYPE: filesystem
+      JAVA_OPTS: "-Xmx1g"
+    volumes:
+      - storage:/data/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+    restart: always
+
+  jobs:
+    image: reportportal/service-jobs:5.11.1
+    container_name: rp_jobs
+    environment:
+      RP_DB_HOST: postgres
+      RP_DB_PORT: 5432
+      RP_DB_USER: rpuser
+      RP_DB_PASS: rppass
+      RP_DB_NAME: reportportal
+      RP_AMQP_HOST: rabbitmq
+      RP_AMQP_PORT: 5672
+      RP_AMQP_USER: rabbitmq
+      RP_AMQP_PASS: rabbitmq
+      RP_AMQP_APIPORT: 15672
+      RP_AMQP_APIUSER: rabbitmq
+      RP_AMQP_APIPASS: rabbitmq
+      RP_AMQP_ANALYZER-VHOST: analyzer
+      DATASTORE_TYPE: filesystem
+    volumes:
+      - storage:/data/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+    restart: always
+
+  ui:
+    image: reportportal/service-ui:5.11.1
+    container_name: rp_ui
+    environment:
+      RP_SERVER_PORT: 8080
+    restart: always
+
+  analyzer:
+    image: reportportal/service-auto-analyzer:5.11.0
+    container_name: rp_analyzer
+    environment:
+      LOGGING_LEVEL: info
+      AMQP_EXCHANGE_NAME: analyzer-default
+      AMQP_VIRTUAL_HOST: analyzer
+      AMQP_URL: amqp://rabbitmq:rabbitmq@rabbitmq:5672
+      ES_HOSTS: http://opensearch:9200
+      ANALYZER_BINARYSTORE_TYPE: filesystem
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      opensearch:
+        condition: service_healthy
+    restart: always
+
+  gateway:
+    image: nginx:alpine
+    container_name: rp_gateway
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - uat
+      - api
+      - ui
+    restart: always
+
+volumes:
+  postgres-data:
+  opensearch-data:
+  storage:

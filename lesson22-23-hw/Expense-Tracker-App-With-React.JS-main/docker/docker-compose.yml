@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app-dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: development
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../src:/app/src
+      - ../public:/app/public
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    stdin_open: true
+    tty: true
+
+  app-prod:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: production
+    ports:
+      - "80:80"
+
+  app-test:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: test
+    volumes:
+      - ../src:/app/src
+      - ../tests:/app/tests
+      - ../coverage:/app/coverage
+    environment:
+      - CI=true
