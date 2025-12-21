@@ -2,15 +2,22 @@ name: Playwright Tests
 
 on:
   push:
-    branches: [main, master, develop]
+    branches: [main, master, develop, exam-project-playwright]
+    paths:
+      - 'exam-project-playwright/**'
   pull_request:
     branches: [main, master, develop]
+    paths:
+      - 'exam-project-playwright/**'
   workflow_dispatch:
 
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: exam-project-playwright
 
     steps:
       - name: Checkout repository
@@ -37,7 +44,7 @@ jobs:
         if: always()
         with:
           name: playwright-report
-          path: playwright-report/
+          path: exam-project-playwright/playwright-report/
           retention-days: 30
 
       - name: Upload Test Results
@@ -45,6 +52,5 @@ jobs:
         if: always()
         with:
           name: test-results
-          path: test-results/
+          path: exam-project-playwright/test-results/
           retention-days: 30
-
