@@ -1,0 +1,51 @@
+{
+  "name": "automation-complexapp-ts",
+  "version": "1.0.0",
+  "description": "Test Automation Framework for ComplexApp using Playwright and TypeScript",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:ui": "npx playwright test --ui",
+    "test:debug": "npx playwright test --debug",
+    "test:login": "npx playwright test src/tests/login/",
+    "test:api": "npx playwright test src/tests/api/",
+    "test:e2e": "npx playwright test src/tests/e2e/",
+    "test:chromium": "npx playwright test --project=chromium",
+    "test:firefox": "npx playwright test --project=firefox",
+    "test:webkit": "npx playwright test --project=webkit",
+    "report": "npx playwright show-report",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/",
+    "allure:generate": "npx allure generate allure-results --clean -o allure-report",
+    "allure:serve": "npx allure serve allure-results"
+  },
+  "keywords": [
+    "automation",
+    "testing",
+    "playwright",
+    "typescript",
+    "api-testing",
+    "e2e-testing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@playwright/test": "^1.40.0",
+    "@types/dotenv-safe": "^9.1.0",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.50.0",
+    "@typescript-eslint/parser": "^8.50.0",
+    "allure-commandline": "^2.36.0",
+    "allure-playwright": "^3.4.3",
+    "dotenv-safe": "^9.1.0",
+    "eslint": "^9.39.2",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.7.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.0",
+    "typescript-eslint": "^8.50.0"
+  }
+}
