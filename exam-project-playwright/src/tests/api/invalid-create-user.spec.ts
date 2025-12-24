@@ -1,4 +1,4 @@
-import { apiTest as test } from '../fixtures/api.fixture';
+import { apiTest as test, expect } from '../fixtures/api.fixture';
 import { VALID_LOGIN, INVALID_VALUE_1CHAR, generateRandomString, generateRandomEmail } from '../../test-data/test-data';
 import { CreateUserDto } from '../../api/models/request.dto';
 
@@ -63,8 +63,13 @@ test.describe('Invalid Create User API', () => {
     ];
 
     for (const data of invalidUserData) {
-        test(`should reject user with ${data.description}`, async ({ apiHelper }) => {
-            const token = data.includeToken ? await apiHelper.getToken() : '';
+        test(`should reject user with ${data.description}`, async ({ authApi, usersApi }) => {
+            let token = '';
+            if (data.includeToken) {
+                const tokenResponse = await authApi.login();
+                expect(tokenResponse.status).toBe(200);
+                token = authApi.parseToken(tokenResponse.body);
+            }
 
             const userData: CreateUserDto = {
                 username: data.username(),
@@ -73,7 +78,9 @@ test.describe('Invalid Create User API', () => {
                 token,
             };
 
-            await apiHelper.createUserExpectError(userData, data.expectedStatus, data.expectedError);
+            const response = await usersApi.create(userData);
+            expect(response.status).toBe(data.expectedStatus);
+            expect(response.body).toBe(data.expectedError);
         });
     }
 });

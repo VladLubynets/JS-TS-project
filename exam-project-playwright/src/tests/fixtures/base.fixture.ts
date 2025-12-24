@@ -1,11 +1,7 @@
 import { test as base } from '@playwright/test';
 import { LoginPage } from '../../pages/login.page';
 import { HomePage } from '../../pages/home.page';
-
-type PageFixtures = {
-    loginPage: LoginPage;
-    homePage: HomePage;
-};
+import { PageFixtures } from './fixture.types';
 
 export const test = base.extend<PageFixtures>({
     loginPage: async ({ page }, use) => {

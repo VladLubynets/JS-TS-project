@@ -1,20 +1,30 @@
-import { apiTest as test } from '../fixtures/api.fixture';
+import { apiTest as test, expect } from '../fixtures/api.fixture';
 import { generateRandomString, generateRandomEmail } from '../../test-data/test-data';
 
 test.describe('Create User API', () => {
-    test('should create and delete user', async ({ apiHelper }) => {
-        const token = await apiHelper.getToken();
+    test('should create and delete user', async ({ authApi, usersApi }) => {
+        const tokenResponse = await authApi.login();
+        expect(tokenResponse.status).toBe(200);
+        const token = authApi.parseToken(tokenResponse.body);
+
         const username = generateRandomString(10);
         const password = generateRandomString(12);
         const email = generateRandomEmail();
 
-        await apiHelper.createUser(username, password, email, token);
+        const createResponse = await usersApi.create({ username, password, email, token });
+        expect(createResponse.status).toBe(201);
+        expect(createResponse.body).toBe('"Congrats. You created new user"');
 
-        const userInfo = await apiHelper.getUserInfo(username.toLowerCase(), token);
+        const userInfoResponse = await usersApi.getInfo(username.toLowerCase(), token);
+        expect(userInfoResponse.status).toBe(200);
+        const userInfo = usersApi.parseUserInfo(userInfoResponse.body);
         const userId = userInfo._id;
 
-        await apiHelper.deleteUser(token, userId, username.toLowerCase(), true);
+        const deleteResponse = await usersApi.delete(token, userId);
+        expect(deleteResponse.status).toBe(200);
+        expect(deleteResponse.body).toBe(`"User with id ${userId} was deletted "`);
 
-        await apiHelper.expectInvalidLogin('"Sorry, your values are not correct."', username, password);
+        const loginResponse = await authApi.login(username, password);
+        expect(loginResponse.body).toBe('"Sorry, your values are not correct."');
     });
 });

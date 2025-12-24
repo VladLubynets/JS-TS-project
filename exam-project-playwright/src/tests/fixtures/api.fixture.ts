@@ -1,14 +1,16 @@
 import { test as base } from '@playwright/test';
-import { ApiHelperService } from '../../api/api-helper.service';
+import { AuthApi, UsersApi, PostsApi } from '../../api/services';
+import { ApiFixtures } from './fixture.types';
 
-interface ApiFixture {
-    apiHelper: ApiHelperService;
-}
-
-export const apiTest = base.extend<ApiFixture>({
-    apiHelper: async ({ request }, use) => {
-        const apiHelper = new ApiHelperService(request);
-        await use(apiHelper);
+export const apiTest = base.extend<ApiFixtures>({
+    authApi: async ({ request }, use) => {
+        await use(new AuthApi(request));
+    },
+    usersApi: async ({ request }, use) => {
+        await use(new UsersApi(request));
+    },
+    postsApi: async ({ request }, use) => {
+        await use(new PostsApi(request));
     },
 });
 

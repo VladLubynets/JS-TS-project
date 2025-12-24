@@ -1,11 +1,15 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { Color } from '../test-data/color-palette';
 import { BASE_URL } from '../api/endpoints';
+import { HeaderComponent } from './components/header.component';
 
 export class BasePage {
     readonly baseUrl = BASE_URL;
+    readonly header: HeaderComponent;
 
-    constructor(protected readonly page: Page) {}
+    constructor(protected readonly page: Page) {
+        this.header = new HeaderComponent(page);
+    }
 
     async resizeWindow(width: number, height: number) {
         await this.page.setViewportSize({ width, height });

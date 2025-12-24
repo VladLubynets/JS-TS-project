@@ -1,11 +1,13 @@
-import { apiTest as test } from '../fixtures/api.fixture';
+import { apiTest as test, expect } from '../fixtures/api.fixture';
 import { CreatePostDto } from '../../api/models/request.dto';
 
 test.describe('Invalid Create Post API', () => {
     let token: string;
 
-    test.beforeEach(async ({ apiHelper }) => {
-        token = await apiHelper.getToken();
+    test.beforeEach(async ({ authApi }) => {
+        const tokenResponse = await authApi.login();
+        expect(tokenResponse.status).toBe(200);
+        token = authApi.parseToken(tokenResponse.body);
     });
 
     const invalidPostData = [
@@ -44,7 +46,7 @@ test.describe('Invalid Create Post API', () => {
     ];
 
     for (const data of invalidPostData) {
-        test(`should reject post with ${data.description}`, async ({ apiHelper }) => {
+        test(`should reject post with ${data.description}`, async ({ postsApi }) => {
             const postData: CreatePostDto = {
                 title: data.title,
                 body: data.body,
@@ -53,7 +55,9 @@ test.describe('Invalid Create Post API', () => {
                 token: data.includeToken ? token : '',
             };
 
-            await apiHelper.createPostExpectError(postData, data.expectedStatus, data.expectedError);
+            const response = await postsApi.create(postData);
+            expect(response.status).toBe(data.expectedStatus);
+            expect(response.body).toBe(data.expectedError);
         });
     }
 });
